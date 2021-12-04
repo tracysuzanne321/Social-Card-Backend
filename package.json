@@ -1,29 +1,32 @@
 {
-  "name": "SocialCard-Back",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "nodemon src/server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tracysuzanne321/SocialCard-Back.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/tracysuzanne321/SocialCard-Back/issues"
-  },
-  "homepage": "https://github.com/tracysuzanne321/SocialCard-Back#readme",
-  "dependencies": {
-    "bcrypt": "^5.0.1",
-    "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.0.14",
-    "nodemon": "^2.0.15"
-  }
+	"name": "SocialCard-Back",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "nodemon src/server.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/tracysuzanne321/SocialCard-Back.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/tracysuzanne321/SocialCard-Back/issues"
+	},
+	"homepage": "https://github.com/tracysuzanne321/SocialCard-Back#readme",
+	"dependencies": {
+		"bcrypt": "^5.0.1",
+		"cors": "^2.8.5",
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
+		"jsonwebtoken": "^8.5.1",
+		"mongoose": "^6.0.14",
+		"nodemon": "^2.0.15"
+	},
+	"engines": {
+		"node": "16.x"
+	}
 }
