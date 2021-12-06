@@ -18,6 +18,9 @@ exports.hashPassword = async (req, res, next) => {
 exports.comparePasswords = async (req, res, next) => {
 	try {
 		const user = await User.findOne({ email: req.body.email });
+		if (user === null) {
+			throw new Error('User does not exist');
+		}
 		const comparisonBool = await bcrypt.compare(
 			req.body.password,
 			user.password,
@@ -26,11 +29,11 @@ exports.comparePasswords = async (req, res, next) => {
 			req.user = user;
 			next();
 		} else {
-			throw new Error();
+			throw new Error('Invalid username or password');
 		}
 	} catch (error) {
 		console.log(error);
-		res.status(500).send({ message: 'Check server logs' });
+		res.status(500).send({ message: error.message });
 	}
 };
 

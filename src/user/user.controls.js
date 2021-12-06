@@ -26,9 +26,8 @@ exports.logIn = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
 	try {
-		console.log(req.body);
 		const result = await User.updateOne(
-			{ _id: req.body.userId },
+			{ _id: req.user._id },
 			{
 				$set: {
 					username: req.body.username,

@@ -18,11 +18,11 @@ const userRouter = Router();
 userRouter.post('/user', hashPassword, addUser);
 userRouter.post('/login', comparePasswords, logIn);
 userRouter.get('/token', tokenAuth, logIn);
-userRouter.put('/update', updateUser);
+userRouter.put('/update', tokenAuth, updateUser);
 userRouter.delete('/delete', tokenAuth, deleteUser);
 
 userRouter.post('/getCard', getCard);
-userRouter.put('/updateCard', updateCard);
-userRouter.post('/deleteCard', deleteCard);
+userRouter.put('/updateCard', tokenAuth, updateCard);
+userRouter.post('/deleteCard', tokenAuth, deleteCard);
 
 module.exports = userRouter;
