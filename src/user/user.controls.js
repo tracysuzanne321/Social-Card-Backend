@@ -24,16 +24,32 @@ exports.logIn = async (req, res) => {
 	}
 };
 
-exports.updateEmail = async (req, res) => {
+exports.updateUser = async (req, res) => {
 	try {
-		await User.findOneAndUpdate(
-			{ username: req.body.username },
-			{ $set: { email: req.body.email } },
+		console.log(req.body);
+		const result = await User.updateOne(
+			{ _id: req.body.userId },
+			{
+				$set: {
+					username: req.body.username,
+					email: req.body.email,
+					password: req.body.password,
+				},
+			},
 		);
-		res.status(200).send({ message: 'Specified User Email Updated' });
+		console.log(result);
+		res.status(200).send({
+			result: {
+				username: req.body.username,
+				email: req.body.email,
+				_id: req.params.id,
+			},
+		});
 	} catch (error) {
 		console.log(error);
-		res.status(500).send({ message: 'Check server logs' });
+		res.status(500).send({
+			message: 'Something went wrong, check server logs',
+		});
 	}
 };
 

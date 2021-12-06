@@ -2,7 +2,7 @@ const { Router } = require('express');
 const {
 	addUser,
 	logIn,
-	updateEmail,
+	updateUser,
 	deleteUser,
 	deleteCard,
 	updateCard,
@@ -18,7 +18,7 @@ const userRouter = Router();
 userRouter.post('/user', hashPassword, addUser);
 userRouter.post('/login', comparePasswords, logIn);
 userRouter.get('/token', tokenAuth, logIn);
-userRouter.put('/update', updateEmail);
+userRouter.put('/update', updateUser);
 userRouter.delete('/delete', tokenAuth, deleteUser);
 
 userRouter.post('/getCard', getCard);
