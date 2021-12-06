@@ -18,7 +18,7 @@ const userRouter = Router();
 userRouter.post('/user', hashPassword, addUser);
 userRouter.post('/login', comparePasswords, logIn);
 userRouter.get('/token', tokenAuth, logIn);
-userRouter.put('/update', tokenAuth, updateUser);
+userRouter.put('/update', tokenAuth, hashPassword, updateUser);
 userRouter.delete('/delete', tokenAuth, deleteUser);
 
 userRouter.post('/getCard', getCard);
