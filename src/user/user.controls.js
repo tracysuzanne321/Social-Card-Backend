@@ -1,4 +1,6 @@
 const User = require('./user.model');
+const emailRegex =
+	/^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/;
 
 exports.addUser = async (req, res) => {
 	try {
@@ -26,6 +28,16 @@ exports.logIn = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
 	try {
+		if (
+			(req.body.username === '') |
+			(req.body.email === '') |
+			(req.body.password === '')
+		) {
+			throw new Error('One or more fields were not completed');
+		}
+		if (emailRegex.test(req.body.email) === false) {
+			throw new Error('Invalid email address');
+		}
 		const result = await User.updateOne(
 			{ _id: req.user._id },
 			{
@@ -36,7 +48,6 @@ exports.updateUser = async (req, res) => {
 				},
 			},
 		);
-		console.log(result);
 		res.status(200).send({
 			result: {
 				username: req.body.username,
@@ -47,7 +58,7 @@ exports.updateUser = async (req, res) => {
 	} catch (error) {
 		console.log(error);
 		res.status(500).send({
-			message: 'Something went wrong, check server logs',
+			message: error.message,
 		});
 	}
 };
