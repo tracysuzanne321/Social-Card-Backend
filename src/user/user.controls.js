@@ -4,15 +4,25 @@ const emailRegex =
 
 exports.addUser = async (req, res) => {
 	try {
+		if (
+			(req.body.username === '') |
+			(req.body.email === '') |
+			(req.body.password === '')
+		) {
+			throw new Error('One or more fields were not completed');
+		}
+		if (emailRegex.test(req.body.email) === false) {
+			throw new Error('Invalid email address');
+		}
 		const newUser = new User(req.body);
 		const token = await newUser.generateAuthToken();
 		await newUser.save();
 		res.status(200).send({ message: 'Success!', newUser, token });
 	} catch (error) {
 		console.log(error);
-		res
-			.status(500)
-			.send({ message: 'Something went wrong, check server logs' });
+		res.status(500).send({
+			message: error.message,
+		});
 	}
 };
 

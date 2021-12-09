@@ -3,16 +3,14 @@ const jwt = require('jsonwebtoken');
 const User = require('../user/user.model');
 
 exports.hashPassword = async (req, res, next) => {
-	try {
-		console.log(req.body.password);
-		const pass = req.body.password;
-		const hashedPass = await bcrypt.hash(pass, 8);
-		req.body.password = hashedPass;
+	console.log(req.body.password);
+	const pass = req.body.password;
+	if (pass === '') {
 		next();
-	} catch (error) {
-		console.log(error);
-		res.status(500).send({ message: 'Check server error logs' });
 	}
+	const hashedPass = await bcrypt.hash(pass, 8);
+	req.body.password = hashedPass;
+	next();
 };
 
 exports.comparePasswords = async (req, res, next) => {
